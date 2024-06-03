@@ -1,16 +1,16 @@
-from datetime import date, timedelta
+import unittest
+from evens import even_number_of_evens
 
-class Student:
-    """A Student class as base for method testing"""
+class TestEvens(unittest.TestCase):
+    
+    def test_throws_error_if_value_passed_in_is_not_list(self):
+        self.assertRaises(TypeError, even_number_of_evens, 4)
 
-    def __init__(self, first_name, last_name):
-        self._first_name = first_name
-        self._last_name = last_name
-        self._start_date = date.today()
-        self.end_date = date.today() + timedelta(days=365)
-        self.naughty_list = False
+    def test_values_in_list(self):
+        self.assertEqual(even_number_of_evens([]), False)
+        self.assertEqual(even_number_of_evens([2, 4]), True)
+        self.assertEqual(even_number_of_evens([2]), False)
+        self.assertEqual(even_number_of_evens([1, 3, 5]), False)
 
-
-    @property
-    def full_name(self):
-        return f"{self._first_name} {self._last_name}"
+if __name__ == '__main__':
+    unittest.main()
